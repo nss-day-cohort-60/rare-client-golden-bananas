@@ -116,6 +116,7 @@ export const PostList = ({searchTermState}) => {
                                         {postObj.title}
                                     </a>
                                 </h3>
+                                <img src={postObj.image_url}/>
                                 <p className="post-details">Author: {postObj.user.full_name}</p>
                                 <p className="post-details">Category: {postObj.category.label}</p>
                             </div>
