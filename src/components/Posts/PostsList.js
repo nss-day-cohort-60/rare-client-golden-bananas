@@ -24,6 +24,7 @@ export const PostList = ({searchTermState}) => {
         [ posts, searchTermState ]
     )
 
+    console.log(posts)
     // useEffect(
     //     () => {
     //         setFiltered(posts)
@@ -115,7 +116,7 @@ export const PostList = ({searchTermState}) => {
                                         {postObj.title}
                                     </a>
                                 </h3>
-                                <p className="post-details">Author: {postObj.user.first_name} {postObj.user.last_name}</p>
+                                <p className="post-details">Author: {postObj.user.full_name}</p>
                                 <p className="post-details">Category: {postObj.category.label}</p>
                             </div>
                             </div>
