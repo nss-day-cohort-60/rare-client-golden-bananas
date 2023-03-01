@@ -20,7 +20,7 @@ export const Login = ({ setToken, setUserId }) => {
       if ("valid" in res && res.valid) {
         setToken(res.token)
         setUserId(res.user_id)
-        navigate("/")
+        navigate("/posts")
       }
       else {
         setisUnsuccessful(true)

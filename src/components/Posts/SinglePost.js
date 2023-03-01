@@ -37,6 +37,7 @@ export const SinglePost = () => {
                                 <h3 className="post-title">
                                         {post.title}
                                 </h3>
+                                <img src={post.image_url}/>
                                 <p className="post-details">Author: {post?.user?.full_name}</p>
                                 <p className="post-details">Category: {post?.category?.label}</p>
                                 <p className="post-details">Content: {post.content}</p>
