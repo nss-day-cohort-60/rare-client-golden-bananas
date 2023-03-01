@@ -4,8 +4,10 @@ import "./Posts.css"
 
 
 export const AddPostForm = () => {
-    const localUser = localStorage.getItem("auth_token")
+    const localUser = localStorage.getItem("userId")
     const userObject = JSON.parse(localUser)
+    console.log(localUser)
+    console.log(userObject)
 
     const getCurrentDate = () => {
         const date = new Date();
@@ -18,12 +20,13 @@ export const AddPostForm = () => {
     const today = getCurrentDate()
 
     const [post, addPost] = useState({
-        user_id: userObject,
+        user_id: localUser,
         category_id: 0,
         title: "",
         publication_date: `${today}`,
         image_url: "",
-        content: ""
+        content: "",
+        approved: false
     })
     const [categories, setCategory] = useState([])
 
@@ -46,12 +49,13 @@ export const AddPostForm = () => {
 
 
         const postToSend = {
-            user_id: userObject,
-            category_id: post.category_id,
+            user: parseInt(post.user_id),
+            category: post.category_id,
             title: post.title,
             publication_date: `${today}`,
             image_url: post.image_url,
-            content: post.content
+            content: post.content,
+            approved: post.approved
         }
 
         return fetch(`http://localhost:8000/posts`, {
@@ -134,6 +138,22 @@ export const AddPostForm = () => {
                             (evt)=> {
                                 const copy = {...post}
                                 copy.content = evt.target.value
+                                addPost(copy)
+                            }
+                        } />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label className="act-text" htmlFor="approved">Approved: </label>
+                    <input
+                        type="checkbox"
+                        className="act-control2"
+                        checked={post.approved}
+                        onChange={
+                            (evt)=> {
+                                const copy = {...post}
+                                copy.approved = !copy.approved
                                 addPost(copy)
                             }
                         } />

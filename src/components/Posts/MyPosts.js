@@ -8,7 +8,7 @@ export const MyPosts = () => {
     const [posts, setPosts] = useState ([])
     const navigate = useNavigate()
     
-    const localUser = localStorage.getItem("auth_token")
+    const localUser = localStorage.getItem("userId")
     const userObject = JSON.parse(localUser)
 
     useEffect(() => {
@@ -63,7 +63,7 @@ export const MyPosts = () => {
             
             <div className="myPosts-container">
                 {posts.map((postObj) => {
-                    if (postObj.user_id === userObject)
+                    // if (postObj.user_id === userObject)
                         return (
                             <>
                             <div className="activity-card" key={postObj.id} value={postObj.id}>
@@ -71,7 +71,7 @@ export const MyPosts = () => {
                                 <h3 className="post-title" key={postObj.id}>{postObj.title}</h3>
                                 <img src={postObj.image_url}/>
                                 <p className="post-details">{postObj.content}</p>
-                                <p className="post-details">Author: {postObj.user.first_name} {postObj.user.last_name}</p>
+                                <p className="post-details">Author: {postObj.user.full_name}</p>
                                 <p className="post-details">Category: {postObj.category.label}</p>
                                 {/* <p className="post-details">Posted on: {formatDate(postObj)}</p> */}
                                 <p className="post-details">Posted on: {postObj.publication_date}</p>
@@ -83,10 +83,11 @@ export const MyPosts = () => {
                             </div>
                             </>
                         )
-                    else {
-                        return <>
-                        </>
-                    }
+                    // else {
+                    //     return <>
+                    //     <div>"not working"</div>
+                    //     </>
+                    // }
                     
                     })}
                 </div>
