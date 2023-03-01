@@ -65,7 +65,7 @@ export const PostList = ({searchTermState}) => {
             setFiltered(copy)
         } else {
             const copy = [...posts]
-            const filteredCopy = copy.filter(element => element?.category_id === parseInt(event?.target?.value))
+            const filteredCopy = copy.filter(element => element?.category.id === parseInt(event?.target?.value))
             setFiltered(filteredCopy)
         }
     }
