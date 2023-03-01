@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import "./Posts.css"
 
 export const PostEditForm2 = () => {
-    const localUser = localStorage.getItem("auth_token")
+    const localUser = localStorage.getItem("userId")
     const userObject = JSON.parse(localUser)
 
     const getCurrentDate = () => {
@@ -17,12 +17,13 @@ export const PostEditForm2 = () => {
     const today = getCurrentDate()
 
     const [post, setPost] = useState({
-            category_id: 0,
+            category: {},
             title: "",
             publication_date: `${today}`,
             image_url: "",
             content: "",
-            user_id: userObject
+            user_id: userObject,
+            approved: false
     })
     const [categories, setCategories] = useState ([])
     const navigate = useNavigate()
@@ -63,13 +64,22 @@ export const PostEditForm2 = () => {
     const handleSaveButtonClick = (clickEvent) => {
         clickEvent.preventDefault()
 
+        const sendToApi = {
+            category: parseInt(post.category.id),
+            title: post.title,
+            publication_date: `${today}`,
+            image_url: post.image_url,
+            content: post.content,
+            user_id: userObject,
+            approved: post.approved
+        }
             fetch(`http://localhost:8000/posts/${postId}`, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Token ${localStorage.getItem("auth_token")}`,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(post)
+                body: JSON.stringify(sendToApi)
             })
             .then(() => {
                     navigate("/my-posts");
@@ -84,14 +94,21 @@ export const PostEditForm2 = () => {
                 <fieldset>
                     <div className="">
                         <label>
-                            <select className="form-group" onChange={(evt) => {
+                            <select className="form-group" 
+                            value= {post.category.id}
+                            onChange={(evt) => {
                                 const copy = { ...post }
-                                copy.category_id = parseInt(evt.target.value)
+                                copy.category.id = parseInt(evt.target.value)
                                 setPost(copy)
                             }} >
-                                <option>Choose Category</option>
-                                {categories.map(categoryObj => (
-                                    <option value={categoryObj.id} key={categoryObj.id}>{categoryObj.label}</option>))}
+                                <option value={0} type="select" className="editPostForm">Choose Category</option>
+                                {
+                                    categories.map(
+                                        (categoryObj) => {
+                                            return <option value={categoryObj.id} key={categoryObj.id}>{categoryObj.label}</option>
+                                        }
+                                    )
+                                }
                             </select>
                         </label>
                     </div>
@@ -147,6 +164,23 @@ export const PostEditForm2 = () => {
                             } />
                     </div>
                 </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label className="act-text" htmlFor="approved">Approved: </label>
+                        <input
+                            type="checkbox"
+                            className="act-control2"
+                            checked={post.approved}
+                            onChange={
+                                (evt)=> {
+                                    const copy = {...post}
+                                    copy.approved = !copy.approved
+                                    setPost(copy)
+                                }
+                            } />
+                    </div>
+                </fieldset>
+
     
                 <button
                     onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}
