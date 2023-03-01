@@ -37,8 +37,8 @@ export const SinglePost = () => {
                                 <h3 className="post-title">
                                         {post.title}
                                 </h3>
-                                <p className="post-details">Author: {post.first_name} {post.last_name}</p>
-                                <p className="post-details">Category: {post.label}</p>
+                                <p className="post-details">Author: {post?.user?.full_name}</p>
+                                <p className="post-details">Category: {post?.category?.label}</p>
                                 <p className="post-details">Content: {post.content}</p>
                             </div>
                             </div>
