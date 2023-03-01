@@ -72,12 +72,21 @@ export const CategoryList = () => {
             body: JSON.stringify(categoryToSendToAPI)
         })
             .then(rerender)
-
-
-
-
-
     }
+    const deleteButton = (id) => {
+        if (window.confirm("Are you sure you want to delete this category?")) {
+            fetch(`http://localhost:8000/categories/${id}`, {
+            method: "DELETE",
+                headers:{
+                    "Authorization": `Token ${localStorage.getItem("auth_token")}`
+                }    
+            })
+            .then(() => {
+                rerender()
+            })
+        }
+    }
+
 
     return (
         <>
@@ -90,10 +99,8 @@ export const CategoryList = () => {
                         return (
                             <div className="categories-buttons">
                                 <div className="edit-delete-btn">
-                                <button className="button is-medium is-success">Edit</button>
-                                </div>
-                                <div className="edit-delete-btn">
-                                <button className="button is-medium is-danger">Delete</button>
+                                <button className="button is-medium is-danger" onClick={()=> {
+                                    deleteButton(categoryObj.id)}}>Delete</button>
                                 </div>
                             <div className="activity-card" key={categoryObj.id}>
                                 <div className="each-post">
