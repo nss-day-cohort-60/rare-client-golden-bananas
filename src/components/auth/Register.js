@@ -33,7 +33,7 @@ export const Register = ({setToken}) => {
       .then(res => {
         if ("token" in res) {
             localStorage.setItem("auth_token", res.token)
-            navigate("/")
+            navigate("/login")
         }
       })    
     } else {

@@ -24,7 +24,6 @@ export const PostList = ({searchTermState}) => {
         [ posts, searchTermState ]
     )
 
-    console.log(posts)
     // useEffect(
     //     () => {
     //         setFiltered(posts)
@@ -84,17 +83,6 @@ export const PostList = ({searchTermState}) => {
                                 </select>
                             </aside>
                             </>
-                    {/* <label>
-                        <select className="form-group" onChange={(evt) => {
-                            const copy = { ...posts }
-                            copy.category_id = parseInt(evt.target.value)
-                            setCategories(copy)
-                        }} >
-                            <option>Choose Category</option>
-                            {categories.map(categoryObj => (
-                                <option value={categoryObj.id} key={categoryObj.id}>{categoryObj.label}</option>))}
-                        </select>
-                    </label> */}
 
 
 
