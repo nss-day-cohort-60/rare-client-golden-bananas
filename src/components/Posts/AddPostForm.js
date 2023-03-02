@@ -6,8 +6,6 @@ import "./Posts.css"
 export const AddPostForm = () => {
     const localUser = localStorage.getItem("userId")
     const userObject = JSON.parse(localUser)
-    console.log(localUser)
-    console.log(userObject)
 
     const getCurrentDate = () => {
         const date = new Date();
